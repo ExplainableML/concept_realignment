@@ -1,0 +1,74 @@
+trials: 3
+results_dir: /mnt/qb/work/bethge/bkr046/CEM/results/awa2
+
+
+# DATASET VARIABLES
+dataset: awa2
+root_dir: /mnt/qb/work/bethge/bkr046/DATASETS/Animals_with_Attributes2 #cem/data/CUB200/
+batch_size: 128 #256
+num_workers: 8 
+sampling_percent: 1
+test_subsampling: 1
+
+
+# Intervention Parameters
+intervention_freq: 1
+intervention_batch_size: 1024
+intervention_policies:
+    - "group_random_no_prior"
+
+competence_levels: [1, 0]
+incompetence_intervention_policies:
+    - "group_random_no_prior"
+
+# Metrics to run for the learnt representations. Currently skipping all of them
+# for efficiency purposes but feel free to change this after training and
+# rerunning as it can reuse trained models :)
+skip_repr_evaluation: True
+
+shared_params:
+    top_k_accuracy: null
+    save_model: True
+    max_epochs: 300
+    patience: 15
+    emb_size: 16
+    extra_dims: 0
+    concept_loss_weight: 5
+    learning_rate: 0.01
+    weight_decay: 0.000004
+    weight_loss: True
+    c_extractor_arch: resnet34
+    optimizer: sgd
+    early_stopping_monitor: val_loss
+    early_stopping_mode: min
+    early_stopping_delta: 0.0
+    momentum: 0.9
+    sigmoidal_prob: False
+
+runs:
+#    - architecture: 'ConceptEmbeddingModel'
+#      extra_name: ""
+#      shared_prob_gen: True
+#      sigmoidal_prob: True
+#      sigmoidal_embedding: False
+#      training_intervention_prob: 0.25
+#      concat_prob: False
+#      embedding_activation: "leakyrelu"
+
+#    - architecture: 'ConceptBottleneckModel'
+#      extra_name: "SigmoidNoInterventionInTraining"
+#      bool: False
+#      extra_dims: 0
+#      sigmoidal_prob: True
+#      training_intervention_prob: 0
+
+    - architecture: 'SequentialConceptBottleneckModel'
+      extra_name: "NoInterventionInTraining"
+      sigmoidal_embedding: False
+      concat_prob: False
+      embedding_activation: "leakyrelu"
+      bool: False
+      extra_dims: 0
+      sigmoidal_extra_capacity: False
+      sigmoidal_prob: True
+      training_intervention_prob: 0

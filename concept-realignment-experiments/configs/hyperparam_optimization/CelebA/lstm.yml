@@ -1,0 +1,4 @@
+_base_: './base.yml'
+
+optuna:
+  model: LSTM

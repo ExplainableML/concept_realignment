@@ -1,0 +1,31 @@
+optuna:
+  dataset: awa2
+  checkpoint_save_dir: /mnt/qb/work/bethge/bkr046/CEM/checkpoints/concept_corrector_saved_models/
+  input_size: 85
+  output_size: 85
+  hidden_size: 
+    - 40
+    - 85
+    - 170
+  num_layers:
+    - 1
+    - 2
+    - 3
+  learning_rate:
+    min: 0.00001
+    max: 0.1
+  epochs: 500
+  weight_decay:
+    min: 0.000001
+    max: 0.00005
+  batch_size:
+    - 1024
+    - 1024
+    # - 128
+    # - 256
+    # - 512
+    # - 1024
+  intervention_policy_train: ucp #random_intervention_policy
+  intervention_policy_validate: ucp #random_intervention_policy
+  no_interventions: False  # if this is true, there will be no interventions while training the concept corrector (only predicted concepts --> true concepts)
+  # max_interventions: 25

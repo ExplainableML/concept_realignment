@@ -1,0 +1,31 @@
+optuna:
+  # num_trials: 100
+  dataset: cub
+  checkpoint_save_dir: /mnt/qb/work/bethge/bkr046/CEM/checkpoints/concept_corrector_saved_models/
+  input_size: 112
+  output_size: 112
+  hidden_size: 
+    - 112
+    - 56
+    - 224
+  num_layers:
+    - 1
+    - 2
+    - 3
+  learning_rate:
+    min: 0.00001
+    max: 0.1
+  epochs: 500
+  weight_decay:
+    min: 0.000001
+    max: 0.00005
+  batch_size:
+    - 512
+    - 512
+    # - 512
+    # - 1024
+    # min: 128
+    # max: 1024
+  intervention_policy_train: random_intervention_policy # ucp
+  intervention_policy_validate: random_intervention_policy # ucp
+  no_interventions: False  # if this is true, there will be no interventions while training the concept corrector (only predicted concepts --> true concepts)
